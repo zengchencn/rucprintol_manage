@@ -14,24 +14,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
-      children: [
-        {
-          path: '/paycheck',
-          name: 'paycheck',
-          component: PaymentCheck
-        },
-        {
-          path: '/printman',
-          name: 'printman',
-          component: PrintMan
-        },
-        {
-          path: '/deliverman',
-          name: 'deliverman',
-          component: DeliverMan
-        }
-      ]
+      component: Home
     },
     {
       path: '/about',
@@ -41,6 +24,21 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "about" */ './views/About.vue')
+    },
+    {
+      path: '/paycheck',
+      name: 'paycheck',
+      component: PaymentCheck
+    },
+    {
+      path: '/printman',
+      name: 'printman',
+      component: PrintMan
+    },
+    {
+      path: '/deliverman',
+      name: 'deliverman',
+      component: DeliverMan
     }
   ]
 });
