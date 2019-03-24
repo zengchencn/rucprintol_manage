@@ -85,6 +85,7 @@
                     color="primary"
                     small
                     :href="download_static(props.item.order_id)"
+                    target="_blank"
                   >
                     <v-icon>arrow_downward</v-icon>
                   </v-btn>
