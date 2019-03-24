@@ -46,7 +46,7 @@
             >
               <template slot="items" slot-scope="props">
                 <td>{{ props.item.order_id }}</td>
-                <td class="text-xs-center">{{ props.item.customer_building_number }}</td>
+                <td class="text-xs-center">{{ props.item.customer_room_number }}</td>
                 <td class="text-xs-center">{{ props.item.customer_name }}</td>
                 <td class="text-xs-center">{{ props.item.customer_phone }}</td>
                 <td class="text-xs-right">{{ props.item.document_total_price }}</td>
