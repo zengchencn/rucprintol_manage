@@ -46,9 +46,12 @@
             >
               <template slot="items" slot-scope="props">
                 <td>{{ props.item.order_id }}</td>
+                <td class="text-xs-center">{{ props.item.customer_building_number }}</td>
                 <td class="text-xs-center">{{ props.item.customer_name }}</td>
                 <td class="text-xs-center">{{ props.item.customer_phone }}</td>
                 <td class="text-xs-right">{{ props.item.document_total_price }}</td>
+                <td class="text-xs-right">{{ props.item.document_numpages }}</td>
+                <td class="text-xs-right">{{ props.item.paper_binding }}</td>
                 <td class="text-xs-center">
                   <span v-if="props.item.order_payment" class="green--text">已付款</span>
                   <span v-else class="red--text">未付款</span>
@@ -76,6 +79,16 @@
                   >
                     <v-icon>check</v-icon>
                   </v-btn>
+                  <v-btn
+                    flat
+                    icon
+                    color="primary"
+                    small
+                    :href="download_static(props.item.order_id)"
+                  >
+                    <v-icon>arrow_downward</v-icon>
+                  </v-btn>
+
                   <v-btn
                     flat
                     icon
@@ -117,9 +130,12 @@ export default {
         value: "name",
         sortable: false
       },
+      { text: "宿舍号", value: "dormnum", sortable: false },
       { text: "顾客姓名", value: "name", sortable: false },
       { text: "顾客电话", value: "phone", sortable: false },
       { text: "应付金额", value: "price", sortable: false },
+      { text: "页数", value: "numpages", sortable: false },
+      { text: "装订方式", value: "binding", sortable: false },
       { text: "付款状态", value: "stat_pay", sortable: false },
       { text: "付款确认", value: "stat_pay_confirm", sortable: false },
       { text: "打印状态", value: "stat_print", sortable: false },
@@ -167,6 +183,9 @@ export default {
         .then(() => {
           self.onQuery();
         });
+    },
+    download_static(id) {
+      return "https://rucprint.cn/static/" + id + ".pdf";
     }
   }
 };

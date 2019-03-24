@@ -59,7 +59,13 @@
                   <span v-else class="red--text">未打印</span>
                 </td>
                 <td class="justify-center px-0">
-                  <v-btn flat icon color="primary" small @click="download(props.item.order_id)">
+                  <v-btn
+                    flat
+                    icon
+                    color="primary"
+                    small
+                    :href="download_static(props.item.order_id)"
+                  >
                     <v-icon>arrow_downward</v-icon>
                   </v-btn>
                   <v-btn flat icon color="success" small @click="check(props.item.order_id)">
@@ -135,6 +141,9 @@ export default {
         .then(() => {
           self.onQuery();
         });
+    },
+    download_static(id) {
+      return "https://rucprint.cn/static/" + id + ".pdf";
     },
     download(id) {
       fly
