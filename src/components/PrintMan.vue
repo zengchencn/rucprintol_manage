@@ -54,6 +54,7 @@
                 <td class="text-xs-center">{{ props.item.paper_sig_or_dbl }}</td>
                 <td class="text-xs-center">{{ props.item.paper_binding }}</td>
                 <td class="text-xs-center">{{ props.item.total_copy_count }}</td>
+                <td class="text-xs-center">{{ props.item.document_numpages }}</td>
                 <td class="text-xs-center">
                   <span v-if="props.item.order_print" class="green--text">已打印</span>
                   <span v-else class="red--text">未打印</span>
@@ -111,6 +112,7 @@ export default {
       { text: "单面/双面", value: "sgldbl", sortable: false },
       { text: "装订方法", value: "bind", sortable: false },
       { text: "打印份数", value: "count", sortable: false },
+      { text: "每份页数", value: "numpages", sortable: false },
       { text: "打印状态", value: "stat_pay_confirm", sortable: false },
       { text: "操作", value: "actions", sortable: false }
     ],
