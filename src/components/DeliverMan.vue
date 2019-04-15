@@ -52,7 +52,6 @@
                 <td class="text-xs-center">{{ props.item.total_copy_count }}</td>
                 <td class="text-xs-center">{{ props.item.customer_name }}</td>
                 <td class="text-xs-center">{{ props.item.customer_phone }}</td>
-                <td class="text-xs-center"></td>
                 <td class="text-xs-center">
                   <span v-if="props.item.order_deliver" class="green--text">已送达</span>
                   <span v-else class="red--text">未送达</span>
