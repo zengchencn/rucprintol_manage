@@ -52,6 +52,8 @@
                 <td class="text-xs-right">{{ props.item.document_total_price }}</td>
                 <td class="text-xs-right">{{ props.item.document_numpages }}</td>
                 <td class="text-xs-right">{{ props.item.paper_binding }}</td>
+                <td class="text-xs-right">{{ props.item.shareOption }}</td>
+                <td class="text-xs-right">{{ props.item.pptOption }}</td>
                 <td class="text-xs-center">
                   <span v-if="props.item.order_payment" class="green--text">已付款</span>
                   <span v-else class="red--text">未付款</span>
@@ -118,7 +120,7 @@
   </div>
 </template>
 <script>
-var fly = require("flyio");
+var fly = require('flyio')
 export default {
   data: () => ({
     date: new Date().toISOString().substr(0, 10),
@@ -126,22 +128,24 @@ export default {
     dialog: false,
     headers: [
       {
-        text: "订单ID",
-        align: "left",
-        value: "name",
+        text: '订单ID',
+        align: 'left',
+        value: 'name',
         sortable: false
       },
-      { text: "宿舍号", value: "dormnum", sortable: false },
-      { text: "顾客姓名", value: "name", sortable: false },
-      { text: "顾客电话", value: "phone", sortable: false },
-      { text: "应付金额", value: "price", sortable: false },
-      { text: "页数", value: "numpages", sortable: false },
-      { text: "装订方式", value: "binding", sortable: false },
-      { text: "付款状态", value: "stat_pay", sortable: false },
-      { text: "付款确认", value: "stat_pay_confirm", sortable: false },
-      { text: "打印状态", value: "stat_print", sortable: false },
-      { text: "配送状态", value: "stat_deliver", sortable: false },
-      { text: "操作", value: "actions", sortable: false }
+      { text: '宿舍号', value: 'dormnum', sortable: false },
+      { text: '顾客姓名', value: 'name', sortable: false },
+      { text: '顾客电话', value: 'phone', sortable: false },
+      { text: '应付金额', value: 'price', sortable: false },
+      { text: '页数', value: 'numpages', sortable: false },
+      { text: '装订方式', value: 'binding', sortable: false },
+      { text: '共享状态', value: 'share', sortable: false },
+      { text: 'PPT选项', value: 'ppt', sortable: false },
+      { text: '付款状态', value: 'stat_pay', sortable: false },
+      { text: '付款确认', value: 'stat_pay_confirm', sortable: false },
+      { text: '打印状态', value: 'stat_print', sortable: false },
+      { text: '配送状态', value: 'stat_deliver', sortable: false },
+      { text: '操作', value: 'actions', sortable: false }
     ],
     order_data: []
   }),
@@ -152,42 +156,42 @@ export default {
 
   methods: {
     onQuery() {
-      let self = this;
+      let self = this
       fly
-        .post("https://rucprint.cn/api/querypayment", {
+        .post('https://rucprint.cn/api/querypayment', {
           order_date:
             this.date.substr(0, 4) +
             this.date.substr(5, 2) +
             this.date.substr(8, 2)
         })
         .then(res => {
-          self.order_data = res.data.data;
+          self.order_data = res.data.data
           // console.log(res.data.data);
-        });
+        })
     },
     check(id) {
-      let self = this;
+      let self = this
       fly
-        .post("https://rucprint.cn/api/checkpayment", {
+        .post('https://rucprint.cn/api/checkpayment', {
           order_id: id
         })
         .then(() => {
-          self.onQuery();
-        });
+          self.onQuery()
+        })
     },
     trash(id) {
-      let self = this;
+      let self = this
       fly
-        .post("https://rucprint.cn/api/trash", {
+        .post('https://rucprint.cn/api/trash', {
           order_id: id
         })
         .then(() => {
-          self.onQuery();
-        });
+          self.onQuery()
+        })
     },
     download_static(id) {
-      return "https://rucprint.cn/static/" + id + ".pdf";
+      return 'https://rucprint.cn/static/' + id + '.pdf'
     }
   }
-};
+}
 </script>

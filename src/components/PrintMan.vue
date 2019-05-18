@@ -55,6 +55,7 @@
                 <td class="text-xs-center">{{ props.item.paper_binding }}</td>
                 <td class="text-xs-center">{{ props.item.total_copy_count }}</td>
                 <td class="text-xs-center">{{ props.item.document_numpages }}</td>
+                <td class="text-xs-right">{{ props.item.pptOption }}</td>
                 <td class="text-xs-center">
                   <span v-if="props.item.order_print" class="green--text">已打印</span>
                   <span v-else class="red--text">未打印</span>
@@ -91,7 +92,7 @@
   </div>
 </template>
 <script>
-var fly = require("flyio");
+var fly = require('flyio')
 export default {
   data: () => ({
     date: new Date().toISOString().substr(0, 10),
@@ -99,22 +100,23 @@ export default {
     dialog: false,
     headers: [
       {
-        text: "订单ID",
-        align: "left",
-        value: "name",
+        text: '订单ID',
+        align: 'left',
+        value: 'name',
         sortable: false
       },
-      { text: "顾客姓名", value: "name", sortable: false },
-      { text: "顾客电话", value: "phone", sortable: false },
-      { text: "纸张类型", value: "type", sortable: false },
-      { text: "纸张大小", value: "size", sortable: false },
-      { text: "黑白/彩色", value: "bwc", sortable: false },
-      { text: "单面/双面", value: "sgldbl", sortable: false },
-      { text: "装订方法", value: "bind", sortable: false },
-      { text: "打印份数", value: "count", sortable: false },
-      { text: "每份页数", value: "numpages", sortable: false },
-      { text: "打印状态", value: "stat_pay_confirm", sortable: false },
-      { text: "操作", value: "actions", sortable: false }
+      { text: '顾客姓名', value: 'name', sortable: false },
+      { text: '顾客电话', value: 'phone', sortable: false },
+      { text: '纸张类型', value: 'type', sortable: false },
+      { text: '纸张大小', value: 'size', sortable: false },
+      { text: '黑白/彩色', value: 'bwc', sortable: false },
+      { text: '单面/双面', value: 'sgldbl', sortable: false },
+      { text: '装订方法', value: 'bind', sortable: false },
+      { text: '打印份数', value: 'count', sortable: false },
+      { text: '每份页数', value: 'numpages', sortable: false },
+      { text: 'PPT选项', value: 'ppt', sortable: false },
+      { text: '打印状态', value: 'stat_pay_confirm', sortable: false },
+      { text: '操作', value: 'actions', sortable: false }
     ],
     order_data: []
   }),
@@ -123,59 +125,59 @@ export default {
 
   methods: {
     onQuery() {
-      let self = this;
+      let self = this
       fly
-        .post("https://rucprint.cn/api/queryprint", {
+        .post('https://rucprint.cn/api/queryprint', {
           order_date:
             this.date.substr(0, 4) +
             this.date.substr(5, 2) +
             this.date.substr(8, 2)
         })
         .then(res => {
-          self.order_data = res.data.data;
-        });
+          self.order_data = res.data.data
+        })
     },
     check(id) {
-      let self = this;
+      let self = this
       fly
-        .post("https://rucprint.cn/api/checkprint", {
+        .post('https://rucprint.cn/api/checkprint', {
           order_id: id
         })
         .then(() => {
-          self.onQuery();
-        });
+          self.onQuery()
+        })
     },
     download_static(id) {
-      return "https://rucprint.cn/static/" + id + ".pdf";
+      return 'https://rucprint.cn/static/' + id + '.pdf'
     },
     download(id) {
       fly
         .post(
-          "https://rucprint.cn/api/getfile",
+          'https://rucprint.cn/api/getfile',
           {
             order_id: id
           },
           {
-            responseType: "blob"
+            responseType: 'blob'
           }
         )
         .then(res => {
-          let blob = new Blob([res.data]);
-          let filename = id + ".pdf";
-          if ("download" in document.createElement("a")) {
-            let elink = document.createElement("a");
-            elink.download = filename;
-            elink.style.display = "none";
-            elink.href = URL.createObjectURL(blob);
-            document.body.appendChild(elink);
-            elink.click();
-            URL.revokeObjectURL(elink.href);
-            document.body.removeChild(elink);
+          let blob = new Blob([res.data])
+          let filename = id + '.pdf'
+          if ('download' in document.createElement('a')) {
+            let elink = document.createElement('a')
+            elink.download = filename
+            elink.style.display = 'none'
+            elink.href = URL.createObjectURL(blob)
+            document.body.appendChild(elink)
+            elink.click()
+            URL.revokeObjectURL(elink.href)
+            document.body.removeChild(elink)
           } else {
-            navigator.msSaveBlob(blob, filename);
+            navigator.msSaveBlob(blob, filename)
           }
-        });
+        })
     }
   }
-};
+}
 </script>
